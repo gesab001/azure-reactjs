@@ -24,12 +24,32 @@ class Editor extends React.Component {
     
   };
 
-  onButtonClickHandler() {
+  onButtonClickHandlerAdd() {
+    if(this.state.question=="" || this.state.answer==""){
+       alert("please type question and answer");
+    }else{
+    	var item = {"question" : this.state.question, "answer": this.state.answer};
+    	var dataList = this.state.dataList;
+    	dataList.push(item);
+    	this.setState({dataList: dataList});
+    	console.log(this.state.dataList);
+    	this.setState({question: "", answer: ""});
+    }	
+  }
+
+  onButtonClickHandlerUpdate(index) {
     var item = {"question" : this.state.question, "answer": this.state.answer};
     var dataList = this.state.dataList;
     dataList.push(item);
     this.setState({dataList: dataList});
     console.log(this.state.dataList);
+  }
+
+  onButtonClickHandlerDelete(index) {
+    var dataList = [...this.state.dataList];
+    console.log(dataList[index.index]);
+    dataList.splice(index.index,1);
+    this.setState({dataList: dataList});
   }
 
   render = () => {
@@ -54,12 +74,15 @@ class Editor extends React.Component {
               onChange={this.handleChangeAnswer} // handle innerHTML change
               tagName='div' // Use a custom HTML tag (uses a div by default)
             />
-       <button onClick = {() => {this.onButtonClickHandler()}}>Submit</button>
+       <button onClick = {() => {this.onButtonClickHandlerAdd()}}>Submit</button>
 
        <div> {this.state.dataList.map((item, index) => (
                   <div key={index}>
                       <h4>{item.question}</h4>
                       <p>{item.answer}</p>
+                      <button onClick = {() => {this.onButtonClickHandlerUpdate({index})}}>Update</button>
+                      <button onClick = {() => {this.onButtonClickHandlerDelete({index})}}>Delete</button>
+                    
                  </div>
                   
                )
