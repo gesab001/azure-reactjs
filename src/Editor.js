@@ -1,7 +1,11 @@
 import styles from './Editor.module.css';
 import React from 'react';
 import ContentEditable from 'react-contenteditable';
+import {create, retrieve, update, onDelete} from './Dropbox';
  
+
+
+
 class Editor extends React.Component {
   constructor() {
     super()
@@ -10,11 +14,23 @@ class Editor extends React.Component {
     this.answerField = React.createRef();
     this.state = {question: "", 
                   answer: "",
-                  dataList: [{'question': 'question', 'answer': 'answer'}]
+                  dataList: []
                  };
     var dataList = [];
   };
  
+  componentDidMount() {
+    const dataList = retrieve();
+    console.log(dataList);
+    const fetchDataList = async () => {
+      const response = await retrieve();
+      this.setState({
+        dataList: response
+      });
+    };
+    fetchDataList();
+  }
+
   handleChangeQuestion = evt => {
     this.setState({question: evt.target.value});
   };
@@ -34,22 +50,29 @@ class Editor extends React.Component {
     	this.setState({dataList: dataList});
     	console.log(this.state.dataList);
     	this.setState({question: "", answer: ""});
+        create(this.state.dataList);
     }	
   }
 
   onButtonClickHandlerUpdate(index) {
-    var item = {"question" : this.state.question, "answer": this.state.answer};
-    var dataList = this.state.dataList;
-    dataList.push(item);
-    this.setState({dataList: dataList});
-    console.log(this.state.dataList);
+    update(1, "test", "test");
   }
 
   onButtonClickHandlerDelete(index) {
-    var dataList = [...this.state.dataList];
-    console.log(dataList[index.index]);
-    dataList.splice(index.index,1);
-    this.setState({dataList: dataList});
+    var confirmdelete = window.confirm("are you sure you want to delete?");
+
+    if (confirmdelete) {
+      var password = window.prompt("type delete to continue");
+      if (password=="delete"){
+      	var dataList = [...this.state.dataList];
+      	console.log(dataList[index.index]);
+      	dataList.splice(index.index,1);
+      	this.setState({dataList: dataList});
+      	onDelete(dataList);
+      }else{
+        alert("item not deleted");
+      }
+    }
   }
 
   render = () => {
@@ -79,7 +102,7 @@ class Editor extends React.Component {
        <div> {this.state.dataList.map((item, index) => (
                   <div key={index}>
                       <h4>{item.question}</h4>
-                      <p>{item.answer}</p>
+                      {item.answer}
                       <button onClick = {() => {this.onButtonClickHandlerUpdate({index})}}>Update</button>
                       <button onClick = {() => {this.onButtonClickHandlerDelete({index})}}>Delete</button>
                     
