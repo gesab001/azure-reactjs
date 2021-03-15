@@ -2,7 +2,7 @@ import styles from './Editor.module.css';
 import React from 'react';
 import ContentEditable from 'react-contenteditable';
 import {create, retrieve, update, onDelete} from './Dropbox';
- 
+import Card from './Card'; 
 
 
 
@@ -99,12 +99,11 @@ class Editor extends React.Component {
             />
        <button onClick = {() => {this.onButtonClickHandlerAdd()}}>Submit</button>
 
-       <div> {this.state.dataList.map((item, index) => (
-                  <div key={index}>
-                      <h4>{item.question}</h4>
-                      {item.answer}
-                      <button onClick = {() => {this.onButtonClickHandlerUpdate({index})}}>Update</button>
-                      <button onClick = {() => {this.onButtonClickHandlerDelete({index})}}>Delete</button>
+       <div className={styles.cardContainer}> {this.state.dataList.map((item, index) => (
+                  
+                  <div className={styles.cardInner} key={index} >
+                      <Card item={item} index={index}></Card>
+                     
                     
                  </div>
                   
