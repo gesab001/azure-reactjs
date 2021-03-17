@@ -87,10 +87,49 @@ class Editor extends React.Component {
 	  return strnew1;
   }
 
+  isImage(answer) {
+	  var result = false;
+	  if (answer.startsWith("http")){
+	    result = true; 
+      }
+      return result;
+  }
+  
+  showImage = (evt, url) => {
+	  var el = document.getElementById(evt);
+	  var elContent = document.getElementById(evt + "modalContent");
+	  elContent.style.backgroundImage = "url('" + url +"')";
+	  console.log(el);
+	  if(el.style.display===""){
+    	  console.log("open image");
+
+	    el.style.display = "block";
+	    elContent.style.display = "block";
+      }else{
+		 el.style.display = "";
+		 elContent.style.display = "";
+		 console.log("close image");
+	  }
+	  
+
+  }
+  closeImage = evt => {
+	  var elModal = document.getElementById(evt);
+
+	  var elContent = document.getElementById(evt + "modalContent");
+
+	  elModal.style.display = "";
+	  elContent.style.display = "";
+	  	  console.log(elModal);
+	  	  	  console.log(elContent);
+
+  }
+  
   render = () => {
 
     return  (
       <div>
+       <h1>Exam Preparation for Azure Fundamentals Certification Exam AZ-900</h1>
        <h3>Question</h3>
        <ContentEditable 
               className = {styles.inputField}
@@ -115,8 +154,26 @@ class Editor extends React.Component {
                 <div className={styles.cardContainer}>
                   <div className={styles.cardItem}>
                      <div className={styles.question}><p>{this.removeHTMLTags(item.question)}</p></div>
-                     {this.removeHTMLTags(item.answer).length < 500 &&        <div className={styles.answer}><p>{this.removeHTMLTags(item.answer)}</p></div>     }
-                     {this.removeHTMLTags(item.answer).length > 500 &&        <div className={styles.longAnswer}><p>{this.removeHTMLTags(item.answer)}</p></div>     }
+                     
+                     {this.isImage(item.answer)
+                        
+                       ? <div >
+                           <div onClick = {(event) => {this.showImage(index, item.answer)}} className={styles.answer}>
+                             <img  className={styles.imageAnswer} src={item.answer}/>  
+                             <div  onClick = {(event) => {this.showImage(index)}} id={index} className={styles.modal}>
+							  {/* Modal content */}
+							  <div id={index + "modalContent"} className={styles.modalContent}>
+								<span onClick = {(event) => {this.closeImage(index)}} className={styles.close}>&times;</span>
+								
+							  </div>
+							</div>                                                     
+						   </div>    	
+                         </div>
+                       : <div>
+                           {this.removeHTMLTags(item.answer).length < 500 &&        <div className={styles.answer}><p>{this.removeHTMLTags(item.answer)}</p></div>     }
+                           {this.removeHTMLTags(item.answer).length > 500 &&        <div className={styles.longAnswer}><p>{this.removeHTMLTags(item.answer)}</p></div>     }
+                         </div>
+				     }
                   </div>
                   <div className={styles.buttonDelete}><button onClick = {() => {this.onButtonClickHandlerDelete({index})}}>Delete</button></div>
                 </div>     
