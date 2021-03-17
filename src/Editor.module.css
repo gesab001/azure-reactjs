@@ -23,11 +23,11 @@
   
 }
 
-.cardContainer:hover .answer {
+.cardContainer:hover .longAnswer {
   display: flex;
 }
 
-.cardContainer:hover .longAnswer {
+.cardContainer:hover .answer {
   display: flex;
 }
 
@@ -46,14 +46,13 @@
 
 }
 
-.question, .answer {
+.question, .longAnswer, .answer {
   padding: 10px;
 }
 
-.answer {
+.longAnswer {
   display: none;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   height: 300px;
   overflow-x: hidden;
@@ -63,9 +62,10 @@
   
 }
 
-.longAnswer {
+.answer {
   display: none;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   height: 300px;
   overflow-x: hidden;
