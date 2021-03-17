@@ -32,22 +32,20 @@ class Card extends React.Component {
   render = () => {
       
      return (
-     <div>
-<div className={styles.flipcard}>
-  <div className={styles.flipcardinner}>
-    <div className={styles.flipcardfront}>
-      <h3>{this.props.item.question}</h3>
-       <button onClick = {() => {this.onButtonClickHandlerUpdate(this.props.index)}}>Update</button>
-	   <button onClick = {() => {this.onButtonClickHandlerDelete(this.props.index)}}>Delete</button>
-    </div>
-    <div className={styles.flipcardback}>
-       <p>{this.props.item.answer}</p>
-       <button onClick = {() => {this.onButtonClickHandlerUpdate(this.props.index)}}>Update</button>
-       <button onClick = {() => {this.onButtonClickHandlerDelete(this.props.index)}}>Delete</button>
-    </div>
-  </div>
-</div>
-     </div>
+        <div className={styles.container}>  
+			<div className={styles.flipcard}>
+			  <div className={styles.flipcardinner}>
+				<div className={styles.flipcardfront}>
+				  <h3>{this.props.item.question}</h3>
+				  
+				</div>
+				<div className={styles.flipcardback}>
+				   <p>{this.props.item.answer}</p>
+				  
+				</div>
+			  </div>
+			</div>
+        </div> 
      
      );
   }

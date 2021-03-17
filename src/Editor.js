@@ -59,20 +59,18 @@ class Editor extends React.Component {
   }
 
   onButtonClickHandlerDelete(index) {
-    var confirmdelete = window.confirm("are you sure you want to delete?");
-
-    if (confirmdelete) {
-      var password = window.prompt("type delete to continue");
-      if (password=="delete"){
-      	var dataList = [...this.state.dataList];
-      	console.log(dataList[index.index]);
-      	dataList.splice(index.index,1);
-      	this.setState({dataList: dataList});
-      	onDelete(dataList);
-      }else{
-        alert("item not deleted");
-      }
-    }
+	console.log(index.index);  
+	var confirmdelete = window.confirm("are you sure you want to delete?");
+	if (confirmdelete) {
+		var password = window.prompt("type password to continue");
+		if (password=="delete"){
+			var dataList = [...this.state.dataList];
+			console.log(dataList[index.index]);
+			dataList.splice(index.index,1);
+			this.setState({dataList: dataList});
+			onDelete(dataList);
+		}
+	}
   }
 
   render = () => {
@@ -99,14 +97,12 @@ class Editor extends React.Component {
             />
        <button onClick = {() => {this.onButtonClickHandlerAdd()}}>Submit</button>
 
-       <div className={styles.cardContainer}> {this.state.dataList.map((item, index) => (
-                  
-                  <div className={styles.cardInner} key={index} >
-                      <Card item={item} index={index}></Card>
-                     
-                    
-                 </div>
-                  
+       <div className={styles.container}>  {this.state.dataList.map((item, index) => (                
+                <div class={styles.cardContainer}>
+                  <Card  key={index} item={item} index={index}></Card>
+                  <div className={styles.buttonDelete}><button onClick = {() => {this.onButtonClickHandlerDelete({index})}}>Delete</button></div>
+                </div>     
+                         
                )
 	     )}
        </div>
