@@ -32,11 +32,12 @@ class Editor extends React.Component {
   }
 
   handleChangeQuestion = evt => {
-    this.setState({question: evt.target.value});
+	console.log(evt);
+    this.setState({question: evt.currentTarget.textContent});
   };
  
   handleChangeAnswer = evt => {
-    this.setState({answer: evt.target.value});
+    this.setState({answer: evt.currentTarget.textContent});
     
   };
 
@@ -45,6 +46,7 @@ class Editor extends React.Component {
        alert("please type question and answer");
     }else{
     	var item = {"question" : this.state.question, "answer": this.state.answer};
+    	console.log(item);
     	var dataList = this.state.dataList;
     	dataList.push(item);
     	this.setState({dataList: dataList});
@@ -72,6 +74,12 @@ class Editor extends React.Component {
 		}
 	}
   }
+  
+  removeHTMLTags(str){
+	  var strnew = str.replace( /(<([^>]+)>)/ig, ''); 
+	  var strnew1 = strnew.replace('&nbsp;', '');
+	  return strnew1;
+  }
 
   render = () => {
 
@@ -98,8 +106,11 @@ class Editor extends React.Component {
        <button onClick = {() => {this.onButtonClickHandlerAdd()}}>Submit</button>
 
        <div className={styles.container}>  {this.state.dataList.map((item, index) => (                
-                <div class={styles.cardContainer}>
-                  <Card  key={index} item={item} index={index}></Card>
+                <div className={styles.cardContainer}>
+                  <div className={styles.cardItem}>
+                     <div className={styles.question}><p>{this.removeHTMLTags(item.question)}</p></div>
+                     <div className={styles.answer}><p>{this.removeHTMLTags(item.answer)}</p></div>
+                  </div>
                   <div className={styles.buttonDelete}><button onClick = {() => {this.onButtonClickHandlerDelete({index})}}>Delete</button></div>
                 </div>     
                          

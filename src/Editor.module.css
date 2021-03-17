@@ -8,7 +8,7 @@
 
 .container {
 
-  background-color: blue;
+  background-color: black;
   width: 100%;
   text-align: center;
 }
@@ -16,13 +16,50 @@
 .cardContainer{
     display: inline-block;
     width: 300px;
+
     background-color: yellow;
     text-align: center;
+    margin: 10px;
+  
 }
 
-.buttonDelete{
- text-align: center;
-  background-color: orange;
-  margin: 10px;
-  width: 100%;
+.cardContainer:hover .answer {
+  display: flex;
+}
+
+.cardContainer:hover .question {
+  display: none;
+}
+
+.question {
+  cursor: pointer;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: grey;
+
+}
+
+.question, .answer {
+  padding: 10px;
+}
+
+.answer {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  text-align: center;
+  background-color: white;
+  padding: 10px;
+}
+
+.cardItem {
+
+  
 }
