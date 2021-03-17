@@ -17,6 +17,7 @@ class Editor extends React.Component {
                   answer: "",
                   answerTextContent: "",
                   dataList: []
+                  
                  };
     var dataList = [];
   };
@@ -114,7 +115,8 @@ class Editor extends React.Component {
                 <div className={styles.cardContainer}>
                   <div className={styles.cardItem}>
                      <div className={styles.question}><p>{this.removeHTMLTags(item.question)}</p></div>
-                     <div className={styles.answer}><p>{this.removeHTMLTags(item.answer)}</p></div>
+                     {this.removeHTMLTags(item.answer).length < 500 &&        <div className={styles.answer}><p>{this.removeHTMLTags(item.answer)}</p></div>     }
+                     {this.removeHTMLTags(item.answer).length > 500 &&        <div className={styles.longAnswer}><p>{this.removeHTMLTags(item.answer)}</p></div>     }
                   </div>
                   <div className={styles.buttonDelete}><button onClick = {() => {this.onButtonClickHandlerDelete({index})}}>Delete</button></div>
                 </div>     
