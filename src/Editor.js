@@ -13,7 +13,9 @@ class Editor extends React.Component {
     this.questionField = React.createRef();
     this.answerField = React.createRef();
     this.state = {question: "", 
+		          questionTextContent: "",
                   answer: "",
+                  answerTextContent: "",
                   dataList: []
                  };
     var dataList = [];
@@ -33,11 +35,14 @@ class Editor extends React.Component {
 
   handleChangeQuestion = evt => {
 	console.log(evt);
-    this.setState({question: evt.currentTarget.textContent});
+    this.setState({question: evt.target.value});
+    this.setState({questionTextContent: evt.currentTarget.textContent});
+
   };
  
   handleChangeAnswer = evt => {
-    this.setState({answer: evt.currentTarget.textContent});
+    this.setState({answer: evt.target.value});
+    this.setState({answerTextContent: evt.currentTarget.textContent});
     
   };
 
@@ -45,7 +50,7 @@ class Editor extends React.Component {
     if(this.state.question=="" || this.state.answer==""){
        alert("please type question and answer");
     }else{
-    	var item = {"question" : this.state.question, "answer": this.state.answer};
+    	var item = {"question" : this.state.questionTextContent, "answer": this.state.answerTextContent};
     	console.log(item);
     	var dataList = this.state.dataList;
     	dataList.push(item);
